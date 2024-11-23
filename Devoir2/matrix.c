@@ -1,27 +1,14 @@
-/*
-Ecrire un programme qui permet d'enregistrer et d'afficher une matrice carrée au format binaire et texte.   
-Le programme prend en argument sur la ligne de commande les options suivantes :
--c   // permet de demander la creation d'une matrice aléatoire 
--a  // pour indiquer au programme d'afficher le contenu du fichier 
--d entier // spécifie la dimension de la matrice exemple -d 10 permet d'indiquer que c'est une matrice 10x10  
--b // indique que c'est en mode binaire (mode par defaut)
--t // indique le format du fichier est en mode texte 
--f nomfichier // specifie le nom du fichier 
-Les usages possibles du programmes ./matrix -c -d 10 -f fichiermatrice.bin
-./matrix -c -d 10 -f fichiermatrice.bin -t
-./matrix -a -d 10 -f fichiermatrice.bin -t
-*/
 #include<stdio.h>   
 #include<stdlib.h>
 #include<unistd.h>  
 #include<string.h>
-#include<sys/types.h>  //open
-#include<sys/stat.h>  //open
-#include<fcntl.h>    //open
-#include<unistd.h>    //write
+#include<sys/types.h>  
+#include<sys/stat.h>  
+#include<fcntl.h>    
+#include<unistd.h>    
 
 #define SIZE 50
-//execution 
+ 
 
 int** Matrice_aleatoire(int d){
     int **m =(int**)malloc(d*sizeof(int*));
@@ -39,7 +26,7 @@ int** Matrice_aleatoire(int d){
     }
     for (i = 0; i < d; i++)
         for (j = 0; j < d; j++)
-           m[i][j] = rand()%10;
+           m[i][j] = rand()%10;  //pour plus de lisibilité, on crée une matrice composé de nombres 0 à 9 
     return m;
 }
 
@@ -127,7 +114,7 @@ extern char* optarg;
 int main(int argc, char *argv[])
 {
    int opt;
-   int c=0, a=0, b=0, f=0, d=0,t=0, dim=0;
+   int c=0, a=0, b=0, f=0, d=0,t=0, dim=0;  //ces variables nous permetterons de savoir les options simultannément donner en argument
    char nomFichier[SIZE];
    if(argc<6){
       fprintf(stderr,"Nombre d'argument insuffisant.\n");
@@ -180,7 +167,7 @@ int main(int argc, char *argv[])
       int **m=Matrice_aleatoire(dim);
       int fd = Copie_mode_texte(m,dim,nomFichier);
    }
-   else if (c==1 && t==0 && b==0)  //aucun type de fichier donne
+   else if (c==1 && t==0 && b==0)  //Si aucun type de fichier n'est donné
    {
     //on choisi par defaut le mode binaire
     printf("Creation d'une matrice aleatoire de dimension %d\n", dim);  
