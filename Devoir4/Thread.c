@@ -23,7 +23,7 @@ void *fthreadsecondaire(void *arg) {
 void *fthreadtertiaire(void *arg) {
     while(1){
         sem_wait(&semTertiaire);
-        for ( i = -N; i <= -1; i++)
+        for ( i = -; i >= -N; i--)
           printf("%d \n", i);
         sem_post(&semSecondaire);
     }
